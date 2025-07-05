@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL 2025 - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ipl.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="{{ url_for('static', filename='image/ipllogo.jpg') }}" alt="IPL Logo" class="logo">
+            <h1>Welcome to IPL 2025</h1>
+            <img src="{{ url_for('static', filename='image/bcci.jpg') }}" alt="BCCI Logo" class="logo">
+        </div>
+        <p>Experience the thrill of cricket like never before!</p>
+    </header>
+
+    <section class="captains">
+        <h2>Team Captains</h2>
+        <div class="captain-grid">
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/Dhoni.jpeg') }}" alt="Dhoni">
+                </div>
+                <div class="captain-info">
+                    <p>Chennai Super Kings</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/RohitSharma.jpeg') }}" alt="Rohit">
+                </div>
+                <div class="captain-info">
+                    <p>Mumbai Indians</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/Virat.jpeg') }}" alt="Kohli">
+                </div>
+                <div class="captain-info">
+                    <p>Royal Challengers Bangalore</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/KL.jpeg') }}" alt="Lucknow Captain">
+                </div>
+                <div class="captain-info">
+                    <p>Lucknow Super Giants</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/Rishab.jpeg') }}" alt="Delhi Captain">
+                </div>
+                <div class="captain-info">
+                    <p>Delhi Capitals</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/Shreyas.jpeg') }}" alt="KKR Captain">
+                </div>
+                <div class="captain-info">
+                    <p>Kolkata Knight Riders</p>
+                </div>
+            </div>
+
+            <div class="captain-card">
+                <div class="captain-image">
+                    <img src="{{ url_for('static', filename='image/Pat.jpeg') }}" alt="SRH Captain">
+                </div>
+                <div class="captain-info">
+                    <p>Sunrisers Hyderabad</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="scorecard">
+    <h2>Scorecard</h2>
+
+    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search for teams..">
+
+    <div class="table-responsive">
+        <table id="scorecardTable">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Team</th>
+                    <th>Matches</th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                    <th>Points</th>
+                    <th>Net Run Rate</th>
+                    <th>Captain</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='image/' + team.logo) }}" alt="{{ team.name }}" class="team-logo"></td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.matches }}</td>
+                    <td>{{ team.won }}</td>
+                    <td>{{ team.lost }}</td>
+                    <td>{{ team.points }}</td>
+                    <td>{{ team.nrr }}</td>
+                    <td>{{ team.captain }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+    <script>
+    function filterTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("scorecardTable");
+        const trs = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < trs.length; i++) {
+            const tds = trs[i].getElementsByTagName("td");
+            let show = false;
+            for (let j = 0; j < tds.length; j++) {
+                if (tds[j].textContent.toUpperCase().indexOf(filter) > -1) {
+                    show = true;
+                    break;
+                }
+            }
+            trs[i].style.display = show ? "" : "none";
+        }
+    }
+    </script>
+
+    <footer>
+        <p>© IPL 2025. All rights reserved.</p>
+    </footer>
+</body>
+</html>
